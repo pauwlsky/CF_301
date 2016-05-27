@@ -53,6 +53,8 @@
     webDB.execute(
       [
         {
+          sql:'INSERT INTO people (id, first, middle, last, dob, bio) VALUES ( ? ,?, ?, ? , ? , ?);',
+          data:[this.id, this.first, this.middle, this.last, this.dob, this.bio]
         }
       ],
       callback
@@ -67,7 +69,22 @@
   };
 
   Person.fetchAll = function(callback) {
-  };
+    webDB.execute('SELECT * FROM people', function(rows){
+      if(rows.length !== 0){
+        console.log(rows);
+        Person.loadAll(rows);
+        callback();
+    } else {
+      console.log("no data");
+      $.getJSON('../data/people.json', function(data){
+        var person = new Person(data);
+        person.insertRecord();
+      });
+      Person.loadAll(person);
+      callback();
+    }
+  });
+}
 
 
   module.Person = Person;
