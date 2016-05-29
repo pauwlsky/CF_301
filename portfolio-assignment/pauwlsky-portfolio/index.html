@@ -19,7 +19,7 @@
         </div>
         <div class="body-text">
           <a class="modal-show" href=""><img class="image image-left" src="{{img}}"/></a>
-          <div class="text">{{{text}}}</div>
+          <div class="text text-right">{{{text}}}</div>
           <a class="show-more" href="#">Read On --></a>
         </div>
         <div class="skills-github text-right">
@@ -85,5 +85,8 @@
   <script src="js/portfolioitems.json"></script>
   <script src="js/app.js"></script>
   <script src="js/projectViews.js"></script>
+  <script>
+    Project.fetchAll(projectView.controllerInit);
+  </script>
 </body>
 </html>
