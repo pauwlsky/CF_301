@@ -1,5 +1,7 @@
 
 /*BASE*/
+
+/*#3d5667*/
 html{
   font-size: 62.5%;
 }
@@ -7,6 +9,19 @@ html{
 body{
   margin: 0;
   padding: 0;
+}
+
+p{
+  margin: .5em 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  margin: .5em 0;
 }
 
 a{
@@ -22,9 +37,11 @@ hr{
   clear: both;
 }
 
+
+
 /*LAYOUT*/
 .container{
-  padding: 10px;
+  padding: 2%;
 }
 
 .text-right{
@@ -45,7 +62,7 @@ footer{
 }
 
 article{
-  margin: 4% 2%;
+  margin: 4% 0;
   padding: 1%;
 }
 
@@ -189,9 +206,8 @@ h6 {
   font-family: 'Istok Web', sans-serif;
 }
 
-p{
+p, a{
   font: 1.8rem "HelveticaNeue", "Helvetica", "Arial", sans-serif;
-  color: #214C3F;
 }
 
 a{
@@ -213,19 +229,19 @@ a:hover{
 
 nav li{
     border: solid rgba(64, 61, 61, 0.09) .1rem;
-    background-color: rgba(140, 195, 176, 0.14);
+    background-color: rgba(140, 195, 176, 0.07);
     border-radius: .2rem;
 }
 
 nav a{
-  color: #437365;
+  color: #3d5667;
 }
 
 select{
-  color:  #437365;
+  color:  #3d5667;
   background-color: rgba(140, 195, 176, 0.14);
   border: solid rgba(64, 61, 61, 0.09) 1px;
-  background: url(../images/br_down.png) rgba(140, 195, 176, 0.14) no-repeat 95%;
+  background: url(../images/br_down.png) rgba(140, 195, 176, 0.07) no-repeat 95%;
 }
 
 article{
@@ -261,7 +277,7 @@ footer h4{
   letter-spacing: .2rem;
   margin: 0 2%;
   font-size: 4.0rem;
-  color: #2E6957;
+  color: #3d5667;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -272,7 +288,7 @@ footer h4{
   font-weight:lighter;
   letter-spacing: .2rem;
   margin: 0 5%;
-  color: #2E6957;
+  color: #3d5667;
 }
 
 .logo{
