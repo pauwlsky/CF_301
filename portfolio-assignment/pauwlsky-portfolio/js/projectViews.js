@@ -77,8 +77,14 @@
   projectView.showSkillImgs = function(){
     $('.skills').on('click', 'a', function(e){
       var that = this;
-      e.preventDefault();
       var term = $(this).attr('data-category');
+      e.preventDefault();
+      var existingImages = $(this).parents('.skills-github').find('img');
+      if(existingImages.attr('data-category') === term){
+        return;
+      };
+
+      $(that).parents('.skills-github').find('.skills-images').hide().empty();
       $.ajax({
         type: 'get',
         url: 'js/images.json',
@@ -88,18 +94,16 @@
             return item.match(regex) != undefined;
           })
           .reduce(function(accum, index){
-            // console.log(accum);
-            // console.log(index);
             if (accum.indexOf(index) < 0){
               accum.push(index);
-              // console.log(accum);
             }
             return accum;
           }, [])
           .forEach(function(src){
-            var image = $('<img src=' + src + '>');
-            $(that).parents('div').find('.skills-images').append(image);
+            var image = $('<img src=' + src + ' data-category="'+ term +'">');
+            $(that).parents('.skills-github').find('.skills-images').append(image);
           });
+          $(that).parents('.skills-github').find('.skills-images').fadeIn('slow');
         }
       });
     });
