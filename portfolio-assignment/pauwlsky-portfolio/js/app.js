@@ -12,21 +12,21 @@
 
   Project.all = [];
 
+  Handlebars.registerHelper('join', function(options) {
+    var newSkills = '';
+    var skills = options.fn(this).split(',');
+    skills.forEach(function(item){
+      newSkills += '<a data-category="' + item + '" href="#">  ' + item + '  </a>';
+    });
+    return newSkills;
+  });
+
   Project.prototype.toHtml = function(){
     this.daysAgo = 'Created about ' + parseInt((new Date() - new Date(this.date))/60/60/24/1000) + ' days ago';
     var articleTemplate = $('#article').html();
     var compiledTemplate = Handlebars.compile(articleTemplate);
     var html = compiledTemplate(this);
 
-    Handlebars.registerHelper('join', function(options) {
-      var newSkills = '';
-      var skills = options.fn(this).split(',');
-      skills.forEach(function(item){
-        newSkills += '<a data-category="' + item + '" href="#">  ' + item + '  </a>';
-        //TODO make anchors fire events particular to category
-      });
-      return newSkills;
-    });
     return html;
   };
 
@@ -56,6 +56,7 @@
       JSON.parse(projects).map(function(item){
         Project.render(item);
       });
+      Project.all.length = 0;
       $.ajax({
         type: 'HEAD',
         url:'js/portfolioitems.json',
@@ -81,6 +82,7 @@
             data.map(function(item){
               Project.render(item);
             });
+            Project.all.length = 0;
           }
         });
       }
@@ -101,11 +103,12 @@
           data.map(function(item){
             Project.render(item);
           });
+          Project.all.length = 0;
+          callback();
         }
       });
-      callback();
     }
-  }
+  };
 
   module.Project = Project;
 

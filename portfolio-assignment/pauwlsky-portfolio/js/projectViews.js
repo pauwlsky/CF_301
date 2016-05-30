@@ -68,33 +68,31 @@
     });
     //logic for hiding modal on page click
     //TODO fix logic so modal hides when clicking off of modal
-    $('.modal').on('click', function(e) {
-      $(this).css('display', 'none');
+    $('.modal-content').on('click', function(e) {
+      $('.modal').css('display', 'none');
       $('.modal-content').empty();
     });
   };
 
-  projectView.showSkillImgs = function(){
-    $('.skills').on('click', 'a', function(e){
-      e.preventDefault();
-      var term = $(this).html();
-      $.ajax({
-        type: "get",
-        url: "js/images.json",
-        success: function(data){
-          data.images.map(function(item){
-            console.log(term.toLowerCase());
-            console.log(item.toLowerCase());
-            console.log(item.toLowerCase().indexOf(term.toLowerCase()));
-            var image = $('<img src ="' + item + '" >');
-
-            // console.log(image);
-            // $('body').append(image);
-          })
-        }
+    projectView.showSkillImgs = function(){
+      $('.skills').on('click', 'a', function(e){
+        e.preventDefault();
+        var term = $(this).attr('data-category');
+        $.ajax({
+          type: 'get',
+          url: 'js/images.json',
+          success: function(data){
+            data.images.map(function(item){
+              var regex = new RegExp(term , 'gi');
+              if (item.match(regex) != null){
+                console.log(item);
+                return item;
+              };
+            });
+          }
+        });
       });
-    })
-  }
+    };
 
   projectView.controllerInit = function(){
     projectView.populateFilters();
