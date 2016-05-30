@@ -74,25 +74,36 @@
     });
   };
 
-    projectView.showSkillImgs = function(){
-      $('.skills').on('click', 'a', function(e){
-        e.preventDefault();
-        var term = $(this).attr('data-category');
-        $.ajax({
-          type: 'get',
-          url: 'js/images.json',
-          success: function(data){
-            data.images.map(function(item){
-              var regex = new RegExp(term , 'gi');
-              if (item.match(regex) != null){
-                console.log(item);
-                return item;
-              };
-            });
-          }
-        });
+  projectView.showSkillImgs = function(){
+    $('.skills').on('click', 'a', function(e){
+      var that = this;
+      e.preventDefault();
+      var term = $(this).attr('data-category');
+      $.ajax({
+        type: 'get',
+        url: 'js/images.json',
+        success: function(data){
+          data.images.filter(function(item){
+            var regex = new RegExp(term , 'gi');
+            return item.match(regex) != undefined;
+          })
+          .reduce(function(accum, index){
+            // console.log(accum);
+            // console.log(index);
+            if (accum.indexOf(index) < 0){
+              accum.push(index);
+              // console.log(accum);
+            }
+            return accum;
+          }, [])
+          .forEach(function(src){
+            var image = $('<img src=' + src + '>');
+            $(that).parents('div').find('.skills-images').append(image);
+          });
+        }
       });
-    };
+    });
+  };
 
   projectView.controllerInit = function(){
     projectView.populateFilters();

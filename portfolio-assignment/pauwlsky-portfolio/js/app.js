@@ -37,6 +37,7 @@
       lastArticle.find('.text').removeClass('text-right').addClass('text-left');
       lastArticle.find('img').removeClass('image-left').addClass('image-right');
       lastArticle.find('.skills-github').removeClass('text-right').addClass('text-left');
+      lastArticle.find('.skills-images').css("justify-content", "flex-start");
     };
   };
 
