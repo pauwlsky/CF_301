@@ -20,6 +20,7 @@
     });
   };
 
+
   projectView.showSection = function(){
     $('#about').hide();
     $('#project-li').on('click', function(e){
@@ -77,18 +78,19 @@
   projectView.showSkillImgs = function(){
     $('.skills').on('click', 'a', function(e){
       var that = this;
+      var $skillImagesContainer = $(this).parents('article').find('.skills-images');
+      var $existingImages = $(this).parents('article').find('.skills-images img');
       var term = $(this).attr('data-category');
       e.preventDefault();
-      var existingImages = $(this).parents('.skills-github').find('img');
-      if(existingImages.attr('data-category') === term){
+      if($existingImages.attr('data-category') === term){
         return;
       };
-
-      $(that).parents('.skills-github').find('.skills-images').hide().empty();
+      $existingImages.fadeOut('slow');
       $.ajax({
         type: 'get',
         url: 'js/images.json',
         success: function(data){
+          $skillImagesContainer.empty();
           data.images.filter(function(item){
             var regex = new RegExp(term , 'gi');
             return item.match(regex) != undefined;
@@ -101,9 +103,11 @@
           }, [])
           .forEach(function(src){
             var image = $('<img src=' + src + ' data-category="'+ term +'">');
-            $(that).parents('.skills-github').find('.skills-images').append(image);
+            $skillImagesContainer.append(image);
+            $(image).hide();
           });
-          $(that).parents('.skills-github').find('.skills-images').fadeIn('slow');
+          $skillImagesContainer.addClass('window-grow');
+          $(that).parents('article').find('.skills-images img').fadeIn('slow');
         }
       });
     });

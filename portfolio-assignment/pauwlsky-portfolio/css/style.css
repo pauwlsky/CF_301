@@ -169,6 +169,13 @@ select{
   margin: 3em 1em;
 }
 
+.skills-images{
+  margin: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  clear: both;
+}
+
 .modal{
   display: none;
   position: fixed;
@@ -199,16 +206,21 @@ footer h4{
 }
 
 /*STATES*/
-.height-shrink{
-  height: 10%;
+.window {
+  display: flex;
+  height: .2em;
   opacity: 0;
-  -webkit-transition: height 2s, opacity 2s;
+  background: #D7DADF;
+  -webkit-transition: height .8s, opcaity .8s;
 }
 
-.height-grow{
-  height: 100%;
+
+.window-grow{
+  display: flex;
+  height: 15em;
   opacity: 1;
-  -webkit-transition: height 2s, opacity 2s;
+  background: #D7DADF;
+  /*-webkit-transition: height 1s, opacity 2s;*/
 }
 
 /*THEME*/
@@ -371,12 +383,15 @@ footer h4{
     text-align: center;
   }
 
-
-
     .skills-images img{
       max-height: 5rem;
       margin: .5rem;
     }
+
+    .skills-github, .window{
+      height: 8rem;
+    }
+
 }
 
 @media screen and (max-width: 890px){
