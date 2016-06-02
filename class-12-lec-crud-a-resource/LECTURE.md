@@ -8,6 +8,11 @@
 * Fri May 27th: Portfolio Assignment 7 : Functional Due
 * Note: There is no assignment for Portfolio 8: CRUD
 
+### For those following along
+`git checkout -b sandbox`
+
+Remember to add and commit any changes into your sandbox. This will avoid future headaches and merge conflicts.
+
 # Review
 
 ## Finding something in a directory - example
