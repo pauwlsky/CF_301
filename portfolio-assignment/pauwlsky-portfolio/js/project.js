@@ -1,6 +1,5 @@
 (function(module){
 
-
   var Project = function(title, date, img, text, skills, url) {
     this.title = title;
     this.date = date;
@@ -20,21 +19,19 @@
     });
     return newSkills;
   });
-
-  Project.prototype.toHtml = function(callback){
+//DONE Refactor toHtml to implement a separated hbs template. Returns to Project.create()
+  Project.prototype.toHtml = function(){
     console.log('inside of toHtml');
-    this.daysAgo = 'Created about ' + parseInt((new Date() - new Date(this.date))/60/60/24/1000) + ' days ago';
-    //adding getTeplate(name for ajax call, data to pass in: this, and then the callback? Render()?)?
-    // var articleTemplate = $('#project').html();
-    // var compiledTemplate = Handlebars.compile(articleTemplate);
-    // var html = compiledTemplate(this);
-    // return html;
-    getTemplate('project', this , function(html){
+    return getTemplate('project', this)
+    .then(function(html){
+      console.log('inside of getTemplate .then()');
       $('#project-container').append(html);
-    }).then(callback());
+      Project.alternate();
+    });
   };
 
-  Project.prototype.alternate = function(){
+
+  Project.alternate = function(){
     console.log('inside of alternate');
     var lastArticle = $('article:last');
     if (lastArticle.prev('article').find('.title-date').hasClass('text-left')){
@@ -45,73 +42,78 @@
     };
   };
 
-
-  Project.render = function(item){
+//DONE refactor project.Create() to take care of all project creation tasks, passes toHtml back to fetchAll
+  Project.create = function(item){
     var project = new Project(item.title, item.date, item.img, item.text, item.skills, item.url);
+    project.daysAgo = 'Created about ' + parseInt((new Date() - new Date(item.date))/60/60/24/1000) + ' days ago';
     Project.all.push(project);
     localStorage.setItem('projects' , JSON.stringify(Project.all));
-    //will just be projecttoHtml();, the callback in tohtml will append and alternate?
-    // $('#project-container').append(project.toHtml());
-    project.toHtml(project.alternate);
+    return project.toHtml();
   };
 
+//DONE refactored fetchAll to call callback during Project.create.then()
   Project.fetchAll = function(callback){
     //check for local storage of objects
     if (localStorage.projects){
       var projects = localStorage.getItem('projects');
       JSON.parse(projects).map(function(item){
-        Project.render(item);
+        Project.create(item).then(function(){
+          callback();
+        });
       });
       Project.all.length = 0;
       $.ajax({
         type: 'HEAD',
-        url:'js/portfolioitems.json',
-        async: false,
-        success:function(data, message, xhr){
+        url:'js/projectItems.json'})
+        .then(function(data, message, xhr){
           newEtag = xhr.getResponseHeader('eTag');
+          console.log(newEtag);
           return newEtag;
-        }
-      });
-      var etag = localStorage.getItem('etag');
-      if (etag != newEtag){
-        console.log('not the same!');
-        localStorage.setItem('etag' , newEtag);
-        $('#project').empty();
-        $.ajax({
-          dataType: 'json',
-          url:'js/portfolioitems.json',
-          async: false,
-          success:function(data){
-            data.sort(function(a,b){
-              return (new Date(b.date)) - (new Date(a.date));
+        })
+        .then(function(newEtag){
+          var etag = localStorage.getItem('etag');
+          if (etag != newEtag){
+            console.log('not the same!');
+            localStorage.setItem('etag' , newEtag);
+            $('#project-container').empty();
+            $.ajax({
+              dataType: 'json',
+              url:'js/projectItems.json'
+            })
+            .then(function(data){
+              data.sort(function(a,b){
+                return (new Date(b.date)) - (new Date(a.date));
+              });
+              data.map(function(item){
+                Project.create(item)
+                .then(function(){
+                  callback();
+                });
+              });
+              Project.all.length = 0;
             });
-            data.map(function(item){
-              Project.render(item);
-            });
-            Project.all.length = 0;
           }
         });
-      }
-      callback();
     }
     else {
       //ajax call to portfolioitems.json data and Project construction and project template removal
       $.ajax({
         dataType: 'json',
-        url:'js/portfolioitems.json',
-        async: false,
-        success:function(data, message, xhr){
-          etag = xhr.getResponseHeader('eTag');
-          localStorage.setItem('etag' , etag);
-          data.sort(function(a,b){
-            return (new Date(b.date)) - (new Date(a.date));
+        url:'js/projectItems.json'
+      })
+      .then(function(data, message, xhr) {
+        etag = xhr.getResponseHeader('eTag');
+        localStorage.setItem('etag' , etag);
+        data.sort(function(a,b){
+          return (new Date(b.date)) - (new Date(a.date));
+        });
+        data.map(function(item){
+          Project.create(item)
+          .then(function(){
+            callback();
           });
-          data.map(function(item){
-            Project.render(item);
-          });
-          Project.all.length = 0;
-          callback();
-        }
+        });
+        Project.all.length = 0;
       });
     }
   };
