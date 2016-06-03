@@ -21,16 +21,21 @@
     return newSkills;
   });
 
-  Project.prototype.toHtml = function(){
+  Project.prototype.toHtml = function(callback){
+    console.log('inside of toHtml');
     this.daysAgo = 'Created about ' + parseInt((new Date() - new Date(this.date))/60/60/24/1000) + ' days ago';
-    var articleTemplate = $('#article').html();
-    var compiledTemplate = Handlebars.compile(articleTemplate);
-    var html = compiledTemplate(this);
-
-    return html;
+    //adding getTeplate(name for ajax call, data to pass in: this, and then the callback? Render()?)?
+    // var articleTemplate = $('#project').html();
+    // var compiledTemplate = Handlebars.compile(articleTemplate);
+    // var html = compiledTemplate(this);
+    // return html;
+    getTemplate('project', this , function(html){
+      $('#project-container').append(html);
+    }).then(callback());
   };
 
   Project.prototype.alternate = function(){
+    console.log('inside of alternate');
     var lastArticle = $('article:last');
     if (lastArticle.prev('article').find('.title-date').hasClass('text-left')){
       lastArticle.find('.title-date').removeClass('text-left').addClass('text-right');
@@ -45,8 +50,9 @@
     var project = new Project(item.title, item.date, item.img, item.text, item.skills, item.url);
     Project.all.push(project);
     localStorage.setItem('projects' , JSON.stringify(Project.all));
-    $('#project').append(project.toHtml());
-    project.alternate();
+    //will just be projecttoHtml();, the callback in tohtml will append and alternate?
+    // $('#project-container').append(project.toHtml());
+    project.toHtml(project.alternate);
   };
 
   Project.fetchAll = function(callback){

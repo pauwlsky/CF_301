@@ -10,30 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-    <script id="article" type="text/x-handlebars-template">
-      <article data-category="{{title}}" class="project">
-        <div class="title-date text-left">
-          <h2 class="title">{{title}}</h2>
-          <p class="date">{{date}}</p>
-          <p class="days-ago">{{daysAgo}}</p>
-        </div>
-        <div class="body-text">
-          <a class="modal-show" href=""><img class="image image-left" src="{{img}}"/></a>
-          <div class="text text-right">{{{text}}}</div>
-          <a class="show-more" href="#">Read On --></a>
-        </div>
-        <div class="skills-github text-right">
-          <a class="fontawesome-github-alt font-icon" href="{{url}}"><p class='url-text'>
-            {{url}}</p></a>
-          <h3>Skills Used</h3>
-          <p class="skills">{{#join}}{{skills}}{{/join}}</p>
-        </div>
-        <div class="skills-images window">
-        </div>
-        <hr/>
-      </article>
-    </script>
-
+  <!-- Seperated Out Projects -->
   <div class="container">
     <div class="header-container">
       <img class="logo" src="images/logo.jpg" />
@@ -51,12 +28,9 @@
           </option>
         </select>
     </nav>
-
-
-    <div id="project" class="container">
+    <div id="project-container" class="container">
       <h1 class="header">My Current Front-End Work</h1>
     </div>
-
     <div class="modal">
       <div class="modal-content">
       </div>
@@ -83,8 +57,9 @@
   </footer>
   <script src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+  <script src="js/template.js"></script>
   <script src="js/portfolioitems.json"></script>
-  <script src="js/app.js"></script>
+  <script src="js/project.js"></script>
   <script src="js/projectViews.js"></script>
   <script>
     Project.fetchAll(projectView.controllerInit);
