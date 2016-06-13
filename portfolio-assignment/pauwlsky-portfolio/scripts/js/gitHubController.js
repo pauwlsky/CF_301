@@ -1,4 +1,4 @@
-(function(module){
+var gitHubControllerModule = (function(){
   gitHubController = {};
 
   gitHubController.showFollowing = function(){
@@ -16,6 +16,7 @@
     gitHubController.showFollowing();
   }
 
-  module.gitHubController = gitHubController;
-
-})(window);
+return {
+  controllerInit: gitHubController.controllerInit
+}
+})();
