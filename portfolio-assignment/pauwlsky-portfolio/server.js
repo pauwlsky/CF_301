@@ -14,6 +14,7 @@ app.get('/', function(req, res){
   res.send('index.html');
 });
 
+//this makes a request to my digital ocean node proxy, which is actaully making a call to the github API and sending the data back. 
 app.get('/following', function(req,res){
   request('http://162.243.116.199/', function (error, response, body) {
   res.send(body);

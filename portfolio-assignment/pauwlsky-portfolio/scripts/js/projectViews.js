@@ -92,7 +92,7 @@
       //TODO refactor to exclude images.json and grab information from another source, make AJAX call to flickr free api or another source ? ?
       $.ajax({
         type: 'get',
-        url: 'js/images.json',
+        url: '/scripts/js/images.json',
         success: function(data){
           $skillImagesContainer.empty();
           data.images.filter(function(item){
