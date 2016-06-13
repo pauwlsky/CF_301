@@ -5,7 +5,7 @@
   projectView.populateFilters=function(){
     $.ajax({
       dataType: 'json',
-      url:'js/projectItems.json',
+      url:'/scripts/js/projectItems.json',
       success:function(data){
         data.forEach(function(item){
           var skills = item.skills;
@@ -26,11 +26,13 @@
     $('#project-li').on('click', function(e){
       e.preventDefault();
       $('#about').hide();
+      $('#githubfollowing').hide();
       $('#project-container').fadeIn();
     });
     $('#about-li').on('click', function(e){
       e.preventDefault();
       $('#project-container').hide();
+      $('#githubfollowing').hide();
       $('#about').fadeIn();
     });
   };
@@ -90,7 +92,7 @@
       //TODO refactor to exclude images.json and grab information from another source, make AJAX call to flickr free api or another source ? ?
       $.ajax({
         type: 'get',
-        url: 'js/images.json',
+        url: '/scripts/js/images.json',
         success: function(data){
           $skillImagesContainer.empty();
           data.images.filter(function(item){
@@ -114,6 +116,7 @@
       });
     });
   };
+
 
   projectView.controllerInit = function(){
     console.log('inside controllerInit');

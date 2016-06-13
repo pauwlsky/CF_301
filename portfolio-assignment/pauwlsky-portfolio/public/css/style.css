@@ -64,6 +64,7 @@ article{
   padding: 1%;
 }
 
+
 .image-left {
   float: left;
 }
@@ -144,6 +145,8 @@ select{
 
 .skills-github a{
   letter-spacing: .1rem;
+  display: inline-block;
+  margin: .2em;
 }
 
 .skills-github h3{
@@ -153,6 +156,13 @@ select{
 
 .skills-github .skills{
   margin: 0 0 1rem 0;
+}
+
+
+.githubfollower {
+  width: 350px;
+  display: inline-block;
+  margin: 1rem;
 }
 
 .image{
@@ -269,7 +279,7 @@ select{
   color:  #3d5667;
   background-color: rgba(140, 195, 176, 0.14);
   border: solid rgba(64, 61, 61, 0.09) 1px;
-  background: url(../images/br_down.png) rgba(140, 195, 176, 0.07) no-repeat 95%;
+  background: url(/images/br_down.png) rgba(140, 195, 176, 0.07) no-repeat 95%;
 }
 
 article{
