@@ -38,7 +38,7 @@ var projectControllerModule = (function(){
         return;
       }
       $projectCategories = $('a[data-category="'+ $selectVal +'"]');
-      $('article').hide();
+      $('#project-container').find('article').fadeOut();
       $projectCategories.parents('article').fadeIn();
       if($selectVal === 'See All Categories'){
         $('article').show();
