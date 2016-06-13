@@ -5,7 +5,7 @@
   projectView.populateFilters=function(){
     $.ajax({
       dataType: 'json',
-      url:'js/projectItems.json',
+      url:'/scripts/js/projectItems.json',
       success:function(data){
         data.forEach(function(item){
           var skills = item.skills;
@@ -26,11 +26,13 @@
     $('#project-li').on('click', function(e){
       e.preventDefault();
       $('#about').hide();
+      $('#githubfollowing').hide();
       $('#project-container').fadeIn();
     });
     $('#about-li').on('click', function(e){
       e.preventDefault();
       $('#project-container').hide();
+      $('#githubfollowing').hide();
       $('#about').fadeIn();
     });
   };
@@ -114,6 +116,7 @@
       });
     });
   };
+
 
   projectView.controllerInit = function(){
     console.log('inside controllerInit');

@@ -269,7 +269,7 @@ select{
   color:  #3d5667;
   background-color: rgba(140, 195, 176, 0.14);
   border: solid rgba(64, 61, 61, 0.09) 1px;
-  background: url(../images/br_down.png) rgba(140, 195, 176, 0.07) no-repeat 95%;
+  background: url(/images/br_down.png) rgba(140, 195, 176, 0.07) no-repeat 95%;
 }
 
 article{

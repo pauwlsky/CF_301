@@ -22,12 +22,9 @@
 //DONE Refactor toHtml to implement a separated hbs template. Returns to Project.create()
   Project.prototype.toHtml = function(){
     console.log('inside of toHtml');
-    return getTemplate('project', this)
-    .then(function(html){
-      console.log('inside of getTemplate .then()');
+    var html = Project.compiledTemplate(this);
       $('#project-container').append(html);
       Project.alternate();
-    });
   };
 
 
@@ -51,20 +48,27 @@
     return project.toHtml();
   };
 
+  Project.initAndFetchAll = function(callback){
+    return getCompiledTemplate('project')
+    .then(function(f){
+      Project.compiledTemplate = f;
+      Project.fetchAll(callback)
+    });
+
+
+  };
 //DONE refactored fetchAll to call callback during Project.create.then()
   Project.fetchAll = function(callback){
     //check for local storage of objects
     if (localStorage.projects){
       var projects = localStorage.getItem('projects');
       JSON.parse(projects).map(function(item){
-        Project.create(item).then(function(){
-          callback();
-        });
+        Project.create(item);
       });
       Project.all.length = 0;
       $.ajax({
         type: 'HEAD',
-        url:'js/projectItems.json'})
+        url:'/scripts/js/projectItems.json'})
         .then(function(data, message, xhr){
           newEtag = xhr.getResponseHeader('eTag');
           console.log(newEtag);
@@ -78,28 +82,27 @@
             $('#project-container').empty();
             $.ajax({
               dataType: 'json',
-              url:'js/projectItems.json'
+              url:'/scripts/js/projectItems.json'
             })
             .then(function(data){
               data.sort(function(a,b){
                 return (new Date(b.date)) - (new Date(a.date));
               });
               data.map(function(item){
-                Project.create(item)
-                .then(function(){
-                  callback();
-                });
+                Project.create(item);
               });
               Project.all.length = 0;
             });
           }
+        }).then(function(){
+          callback();
         });
     }
     else {
       //ajax call to portfolioitems.json data and Project construction and project template removal
       $.ajax({
         dataType: 'json',
-        url:'js/projectItems.json'
+        url:'/scripts/js/projectItems.json'
       })
       .then(function(data, message, xhr) {
         etag = xhr.getResponseHeader('eTag');
@@ -108,12 +111,11 @@
           return (new Date(b.date)) - (new Date(a.date));
         });
         data.map(function(item){
-          Project.create(item)
-          .then(function(){
-            callback();
-          });
+          Project.create(item);
         });
         Project.all.length = 0;
+      }).done(function(){
+        callback();
       });
     }
   };
