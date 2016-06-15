@@ -1,4 +1,6 @@
+
 var gitHubModule = (function(){
+
 
   var GitHub = function(props){
     this.login = props.login,
@@ -37,6 +39,7 @@ var gitHubModule = (function(){
       GitHub.fetchAll(callback)
     });
   }
+
 
 
 return {

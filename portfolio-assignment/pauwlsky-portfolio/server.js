@@ -31,7 +31,6 @@ app.get('/following', function(req,res){
 });
 
 
-
 app.listen(port, function(){
   console.log('The magic happens on port ' + port)
 });

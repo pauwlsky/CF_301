@@ -1,4 +1,6 @@
+
 var gitHubControllerModule = (function(){
+
   gitHubController = {};
 
   gitHubController.showFollowing = function(){
@@ -6,8 +8,8 @@ var gitHubControllerModule = (function(){
     $('#following-li').on('click', function(e){
       console.log('click!')
       e.preventDefault();
-      $('#project-container').fadeOut();
-      $('#about').fadeOut();
+      $('#project-container').hide();
+      $('#about').hide();
       $('#githubfollowing').fadeIn();
   });
 };
@@ -15,6 +17,7 @@ var gitHubControllerModule = (function(){
   gitHubController.controllerInit = function(){
     gitHubController.showFollowing();
   }
+
 
 return {
   controllerInit: gitHubController.controllerInit

@@ -126,5 +126,3 @@ var projectModule = (function(){
   }
 
 })();
-
-// module.exports = projectModule;
