@@ -6,7 +6,7 @@ var aboutControllerModule = (function(){
     $('#about-li').on('click', function(e){
       e.preventDefault();
       $('#project-container').hide();
-      $('#githubfollowing').hide();
+      $('#github').hide();
       $('#about').fadeIn();
     });
   };

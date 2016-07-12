@@ -11,7 +11,7 @@ var projectControllerModule = (function(){
           var skills = item.skills;
           skills.forEach(function(item){
             var option = '<option val="' + item + '">' + item + '</option>';
-            if($('#skills-select option[val="'+ item +'"]').length===0){
+            if($('#skills-select option[val="'+ item +'"]').length === 0){
               $('#skills-select').append(option);
             }
           });
@@ -26,7 +26,7 @@ var projectControllerModule = (function(){
     $('#project-li').on('click', function(e){
       e.preventDefault();
       $('#about').hide();
-      $('#githubfollowing').hide();
+      $('#github').hide();
       $('#project-container').fadeIn();
     });
   };
@@ -36,12 +36,12 @@ var projectControllerModule = (function(){
       var $selectVal = $(this).val();
       if($selectVal === 'See Project By Skills Used'){
         return;
-      }
-      $projectCategories = $('a[data-category="'+ $selectVal +'"]');
-      $('#project-container').find('article').fadeOut();
-      $projectCategories.parents('article').fadeIn();
-      if($selectVal === 'See All Categories'){
+      } else if ($selectVal === 'See All Categories'){
         $('article').show();
+      } else {
+        $projectCategories = $('a[data-category="'+ $selectVal +'"]');
+        $('#project-container').find('article').fadeOut();
+        $projectCategories.parents('article').fadeIn();
       }
     });
   };

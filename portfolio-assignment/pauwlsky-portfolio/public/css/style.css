@@ -39,7 +39,17 @@ hr{
 
 /*LAYOUT*/
 .container{
-  padding: 2%;
+  padding: .5% 2%;
+}
+
+.container-flex{
+  padding: 1% 5%;
+  display: flex;
+  align-items: center;
+}
+
+.flex-right{
+  justify-content: flex-end;
 }
 
 .text-center{
@@ -68,7 +78,6 @@ article{
   padding: 1%;
 }
 
-
 .image-left {
   float: left;
 }
@@ -85,19 +94,21 @@ article{
   align-items: center;
 }
 
-.container-right{
-  justify-content: flex-end;
-}
-
 .nav-container{
   height: 8.5rem;
   justify-content: center;
   align-items: center;
   display: flex;
-  margin: 3% auto;
+  margin: 2rem auto;
   border-radius: .3rem;
-  padding: 1% 1%;
+  padding: 0 .5rem;
   text-align: center;
+}
+
+.secondary-nav{
+  margin: 1rem;
+  padding: 0 1.5rem;
+  padding: 0;
 }
 
 nav ul{
@@ -153,6 +164,13 @@ select{
   margin: .2em;
 }
 
+.skills a{
+  color: rgb(239, 244, 238);
+  background-color: rgba(33, 190, 190, 0.61);
+  padding: .2rem .3rem;
+  border-radius: .5rem;
+}
+
 .skills-github h3{
   font-size: 2rem;
   margin: 1rem 0 0 0;
@@ -174,7 +192,7 @@ select{
   max-height: 25.0rem;
   margin: 0 20px 50px 20px;
 }
-/*TODO change .skills-images container and images to be mobile responsive*/
+
 .skills-images img{
   height: 10.0rem;
   margin: 3em 1em;
@@ -208,8 +226,26 @@ select{
   padding: 2%;
 }
 
-#about.header-container{
-  justify-content: flex-end;
+#about .header-container{
+  display: inline-block;
+  padding: .5rem;
+}
+
+#about .container-flex{
+  padding: .5rem 5rem;
+}
+
+#about .logo{
+  width: 20%;
+}
+
+#project-container .header-container{
+  display: block;
+  padding: 1.5rem;
+}
+
+#github .logo{
+  width: 15%;
 }
 
 footer h4{
@@ -267,6 +303,11 @@ a:hover{
 
 .nav-container{
   background-color: rgba(66, 84, 107, 0.14);
+}
+
+.secondary-nav{
+  justify-content: flex-start;
+  background-color: rgba(66, 84, 107, 0.08);
 }
 
 nav li{
@@ -365,6 +406,12 @@ footer h4{
   }
   .modal-content h1{
     font-size: 2em;
+  }
+  .header{
+    font-size: 2.5rem;
+  }
+  .sub-header{
+    font-size: 1.5rem;
   }
 }
 

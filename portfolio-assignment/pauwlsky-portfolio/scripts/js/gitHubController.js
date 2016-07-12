@@ -4,13 +4,13 @@ var gitHubControllerModule = (function(){
   gitHubController = {};
 
   gitHubController.showFollowing = function(){
-    $('#githubfollowing').hide();
+    $('#github').hide();
     $('#following-li').on('click', function(e){
       console.log('click!')
       e.preventDefault();
       $('#project-container').hide();
       $('#about').hide();
-      $('#githubfollowing').fadeIn();
+      $('#github').fadeIn();
   });
 };
 

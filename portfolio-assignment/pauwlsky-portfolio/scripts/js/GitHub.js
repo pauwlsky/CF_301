@@ -13,7 +13,7 @@ var gitHubModule = (function(){
   GitHub.prototype.toHtml = function(){
     console.log('inside of toHtml');
     var html = GitHub.compiledTemplate(this);
-    $('#githubfollowing').append(html);
+    $('#github').append(html);
   };
 
 
